@@ -1,11 +1,12 @@
-import { Navbar } from "./Components/Navbar.components";
+import { Navbar } from "./Components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "",
+    path: "/signIn",
     element: <Navbar />,
   },
+
 ]);
 const App = () => {
   return (

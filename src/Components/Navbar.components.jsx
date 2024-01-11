@@ -1,5 +1,6 @@
 import { useUserGlobalContext } from "../context/user.context";
 import { userSignOut } from "../utils/firebase";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const { currentUser } = useUserGlobalContext();
@@ -10,7 +11,22 @@ const Navbar = () => {
     <main>
       <div className="flex justify-between items-center mx-[2rem] my-[1rem]">
         <h1 className="text-[26px] font-[700]">QUIZ APP</h1>
-        <span className="text-[20px] font-[500] cursor-pointer">Sign In</span>
+        {currentUser ? (
+          <span onClick={signOutHandler} className="cursor-pointer ">
+            Sign Out
+          </span>
+        ) : (
+          <div className="flex items-center gap-2 cursor-pointer hover:border-2 hover:border-blue-400 px-[10px] py-[0.25rem] rounded-lg  hover:text-white hover:bg-blue-400">
+            <NavLink
+              to="/signIn"
+              className={({ isActive }) =>
+                isActive ? "text-red-600" : "text-blue-600  hover:text-white"
+              }
+            >
+              Sign In
+            </NavLink>
+          </div>
+        )}
       </div>
       <div className="flex justify-center items-center h-screen w-[100%]">
         <button
