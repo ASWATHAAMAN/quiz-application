@@ -3,6 +3,8 @@ import { userSignOut } from "../utils/firebase";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
   const { currentUser } = useUserGlobalContext();
   const signOutHandler = async () => {
     const res = await userSignOut();
@@ -26,7 +28,7 @@ const Navbar = () => {
               Sign In
             </NavLink>
           </div>
-        )}
+         )} 
       </div>
       <div className="flex justify-center items-center h-screen w-[100%]">
         <button
