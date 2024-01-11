@@ -1,5 +1,5 @@
-import { useUserGlobalContext } from "../../context/user.context";
-import { userSignOut } from "../../utils/firebase";
+import { useUserGlobalContext } from "../context/user.context";
+import { userSignOut } from "../utils/firebase";
 
 const Navbar = () => {
   const { currentUser } = useUserGlobalContext();

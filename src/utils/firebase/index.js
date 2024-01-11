@@ -1,5 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+// Import the functions you need from the SDKs you need
 import {
   GoogleAuthProvider,
   getAuth,
@@ -11,14 +11,22 @@ import {
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
+// Import the functions you need from the SDKs you need
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBhA0S3I60_pWKHu-TJGr85E7fBB3MBVpk",
-  authDomain: "e-commerce-b5e35.firebaseapp.com",
-  projectId: "e-commerce-b5e35",
-  storageBucket: "e-commerce-b5e35.appspot.com",
-  messagingSenderId: "865040212465",
-  appId: "1:865040212465:web:76cfa75d47687e8b952450",
+  apiKey: "AIzaSyBQ4X8NAxp_1KDF-XbZfVAVFXywBRhN0Bo",
+  authDomain: "quiz-b242a.firebaseapp.com",
+  projectId: "quiz-b242a",
+  storageBucket: "quiz-b242a.appspot.com",
+  messagingSenderId: "728934160718",
+  appId: "1:728934160718:web:fd37abfd3cb33a6e71661f"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase
 const eCommerceApp = initializeApp(firebaseConfig);
