@@ -1,9 +1,9 @@
-import { googleSignInPopUp, createEcommerceDb } from "../../utils/firebase";
+import { googleSignInPopUp, createquizDb } from "../../utils/firebase";
 import { useState } from "react";
 import { signInUserWithEmailAndPassword } from "../../utils/firebase";
 const googleSignIn = async () => {
   const { user } = await googleSignInPopUp();
-  const userRef = await createEcommerceDb(user);
+  const userRef = await createquizDb(user);
   console.log(userRef);
   return;
 };

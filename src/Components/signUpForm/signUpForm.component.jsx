@@ -1,5 +1,5 @@
 import { createAuthUserWithEmailAndPassword } from "../../utils/firebase";
-import { createEcommerceDb } from "../../utils/firebase";
+import { createquizDb } from "../../utils/firebase";
 import { useState } from "react";
 const defaultFormFields = {
   displayName: "",
@@ -29,7 +29,7 @@ const SignUpForm = () => {
         email,
         password
       );
-      const userRef = await createEcommerceDb(user, { displayName });
+      const userRef = await createquizDb(user, { displayName });
       console.log(userRef);
       setFormFields(defaultFormFields);
     } catch (err) {

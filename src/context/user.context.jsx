@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-  createEcommerceDb,
+  createquizDb,
   onAuthStateChangedFunction,
 } from "../utils/firebase";
 
@@ -12,7 +12,7 @@ const UserProvider = ({ children }) => {
     const signOff = onAuthStateChangedFunction((user) => {
       setCurrentUser(user);
       if (user) {
-        createEcommerceDb(user);
+        createquizDb(user);
       }
     });
     return signOff;

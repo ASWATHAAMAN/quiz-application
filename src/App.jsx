@@ -1,6 +1,5 @@
-import { Navbar,SignIn } from "./Components";
+import { Navbar, Quiz, SignIn } from "./Components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 
 const router = createBrowserRouter([
   {
@@ -11,11 +10,15 @@ const router = createBrowserRouter([
     path: "/signIn",
     element: <SignIn />,
   },
+  {
+    path: "/quiz",
+    element: <Quiz />,
+  },
 ]);
 const App = () => {
   return (
     <>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </>
   );
 };

@@ -22,18 +22,18 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const eCommerceApp = initializeApp(firebaseConfig);
-const commerceAuth = getAuth(eCommerceApp);
+const quizApp = initializeApp(firebaseConfig);
+const quizAuth = getAuth(quizApp);
 const googleProvider = new GoogleAuthProvider();
 const googleSignInPopUp = () => {
-  return signInWithPopup(commerceAuth, googleProvider);
+  return signInWithPopup(quizAuth, googleProvider);
 };
 
-const eCommercedb = getFirestore(eCommerceApp);
-const createEcommerceDb = async (userFun, extraInformation = {}) => {
+const quizDb = getFirestore(quizApp);
+const createquizDb = async (userFun, extraInformation = {}) => {
   if (!userFun) return;
 
-  const userRef = doc(eCommercedb, `users`, userFun.uid);
+  const userRef = doc(quizDb, `users`, userFun.uid);
   const userSnapShot = await getDoc(userRef);
   console.log(userSnapShot);
   if (!userSnapShot.exists()) {
@@ -55,24 +55,24 @@ const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   console.log(email);
   console.log(password);
-  return await createUserWithEmailAndPassword(commerceAuth, email, password);
+  return await createUserWithEmailAndPassword(quizAuth, email, password);
 };
 const signInUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
-  return await signInWithEmailAndPassword(commerceAuth, email, password);
+  return await signInWithEmailAndPassword(quizAuth, email, password);
 };
 
 const onAuthStateChangedFunction = (callback) => {
-  return onAuthStateChanged(commerceAuth, callback);
+  return onAuthStateChanged(quizAuth, callback);
 };
 
 const userSignOut = () => {
-  return signOut(commerceAuth);
+  return signOut(quizAuth);
 };
 
 export {
   googleSignInPopUp,
-  createEcommerceDb,
+  createquizDb,
   createAuthUserWithEmailAndPassword,
   signInUserWithEmailAndPassword,
   onAuthStateChangedFunction,
