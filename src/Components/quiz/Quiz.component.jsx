@@ -8,9 +8,14 @@ const Quiz = () => {
       try {
         const response = await fetch(quizApi);
         const data = await response.json();
-        setApiData(data);
+
+        if (Array.isArray(data.results) && data.results.length > 0) {
+          setApiData(data.results);
+        } else {
+          console.error("Empty or invalid data.results:", data.results);
+        }
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching data:", error);
       }
     };
     fetchData();
@@ -18,16 +23,15 @@ const Quiz = () => {
 
   return (
     <>
-      {apiData.results.map((result) => {
+      {apiData?.map((result,index) => {
         let options = result.incorrect_answers;
-        options.push(result.correct_answer)
-        const randomNumbers = Math.trunc(Math.random() * options.length)
-        options[randomNumbers]
+        options.push(result.correct_answer);
+        const randomNumbers = Math.trunc(Math.random() * options.length);
+        options[randomNumbers];
         return (
-          <div key={result.response_code}>
+          <div key={index}>
             <p>{result.question}</p>
-            <input type="radio" id="optOne"/>
-<label htmlFor="optOne">{result.}</label>
+            <input type="radio" id="optOne" />
           </div>
         );
       })}
