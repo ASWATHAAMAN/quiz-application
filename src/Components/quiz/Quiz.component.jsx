@@ -1,18 +1,32 @@
 import { useEffect, useState } from "react";
 
 const Quiz = () => {
-  const [apiData, setApiData] = useState(null);
+  const [questions, setQuestions] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const quizApi = `https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple`;
       try {
         const response = await fetch(quizApi);
         const data = await response.json();
-
         if (Array.isArray(data.results) && data.results.length > 0) {
-          setApiData(data.results);
+          const quests = data.results.map((loadedQuestion) => {
+            const formattedQuestion = {
+              question: loadedQuestion.question,
+            };
+            formattedQuestion.answerChoices = [
+              ...loadedQuestion.incorrect_answers,
+            ];
+            formattedQuestion.answer = Math.floor(Math.random() * 4) + 1 - 1;
+            formattedQuestion.answerChoices.splice(
+              formattedQuestion.answer,
+              0,
+              loadedQuestion.correct_answer
+            );
+            return formattedQuestion;
+          });
+          setQuestions(quests);
         } else {
-          console.error("Empty or invalid data.results:", data.results);
+          console.error("Empty or invalid data results:", data.results);
         }
       } catch (error) {
         console.log("Error fetching data:", error);
@@ -20,38 +34,80 @@ const Quiz = () => {
     };
     fetchData();
   }, []);
+  const handleOptionChange = (option, questindex, index) => {
+    console.log("hit");
+    console.log("ind", index);
+    console.log("qind", questindex);
+    console.log(questions[questindex].answer);
+    console.log(document.getElementById(questindex + ":" + index));
+    if (index === questions[questindex].answer) {
+      console.log("hitin");
+      document.getElementById(option).className = "bg-green-300";
+      document.getElementById(questindex + ":" + index).className =
+        "accent-green-500";
+      document.getElementById(questindex + "result" + index).innerHTML =
+        document.getElementById(questindex + "result" + index).innerHTML +
+        "      Correct Answer!";
+    } else {
+      document.getElementById(option).className = "bg-red-300 ";
+      document.getElementById(questindex + ":" + index).className =
+        "accent-red-300 ";
+      document.getElementById(questindex + "result" + index).innerHTML =
+        document.getElementById(questindex + "result" + index).innerHTML +
+        "      Wrong Answer!";
+      document.getElementById(
+        questions[questindex].answerChoices[questions[questindex].answer]
+      ).className = "bg-green-300";
+      document.getElementById(
+        questindex + ":" + questions[questindex].answer
+      ).className = "accent-green-300 ";
+      document.getElementById(
+        questindex + "result" + questions[questindex].answer
+      ).innerHTML =
+        document.getElementById(
+          questindex + "result" + questions[questindex].answer
+        ).innerHTML + "      Correct Answer!";
+    }
+  };
 
   return (
     <>
-      {apiData?.map((result, index) => {
-        // let options = result.incorrect_answers;
-        // options.push(result.correct_answer);
-        // const randomNumbers = Math.trunc(Math.random() * options.length);
-        // options[randomNumbers];
-        const getRandom = (length) => {
-          console.log(length);
-          return Math.floor(Math.random() * Math.floor(length));
-        };
-        let options = result.incorrect_answers;
-        console.log(options);
-        options.splice(
-          Math.floor(getRandom(options.length), 0, result.correct_answer)
-        );
-
-        return (
-          <div key={index}>
-            <p>{result.question}</p>
-            <input type="radio" id="optOne" />
-            <label htmlFor="optOne">{options[0]}</label>
-            <input type="radio" id="optTwo" />
-            <label htmlFor="optTwo">{options[1]}</label>
-            <input type="radio" id="optThree" />
-            <label htmlFor="optThree">{options[2]}</label>
-            <input type="radio" id="optFour" />
-            <label htmlFor="optFour">{options[3]}</label>
-          </div>
-        );
-      })}
+      <div className="grid gap-[2.75rem] bg-orange-200 border-t-[3px]">
+        {questions?.map((quest, questindex) => {
+          return (
+            <>
+              <div className="border-t-[2px] border-red-950">
+                <p>{quest.question}</p>
+                <ul>
+                  {quest.answerChoices.map((option, index) => {
+                    return (
+                      <>
+                        <li id={option} className="">
+                          <input
+                            type="radio"
+                            id={questindex + ":" + index}
+                            name="options"
+                            value={option}
+                            onChange={() =>
+                              handleOptionChange(option, questindex, index)
+                            }
+                          />
+                          <label
+                            id={questindex + "result" + index}
+                            htmlFor={option}
+                          >
+                            {option}
+                          </label>
+                        </li>
+                      </>
+                    );
+                  })}
+                </ul>
+              </div>
+            </>
+          );
+        })}
+      </div>
     </>
   );
 };
