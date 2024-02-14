@@ -76,8 +76,8 @@ const Quiz = () => {
         {questions?.map((quest, questindex) => {
           return (
             <>
-              <div className="border-t-[2px] border-red-950">
-                <p>{quest.question}</p>
+              <div className="border-t-[2px] border-red-950 p-[1rem]">
+                <p className="text-[22px] font-bold">{quest.question}</p>
                 <ul>
                   {quest.answerChoices.map((option, index) => {
                     return (
@@ -94,7 +94,7 @@ const Quiz = () => {
                           />
                           <label
                             id={questindex + "result" + index}
-                            htmlFor={option}
+                            htmlFor={option} className="text-[18px] font-[400] px-[0.5rem]"
                           >
                             {option}
                           </label>
